@@ -12,14 +12,17 @@ const account = app.node.tryGetContext('account') || process.env.CDK_INTEG_ACCOU
 const primaryRegion = {account: account, region: 'ap-northeast-1'};
 const secondaryRegion = {account: account, region: 'us-west-2'};
 
+// const thirdRegion = {account: account, region: 'ap-southeast-3'};
+
+
 const primaryCluster = new ClusterStack(app, `ClusterStack-${primaryRegion.region}`, {env: primaryRegion })
 new ContainerStack(app, `ContainerStack-${primaryRegion.region}`, {env: primaryRegion, cluster: primaryCluster.cluster });
 
 const secondaryCluster = new ClusterStack(app, `ClusterStack-${secondaryRegion.region}`, {env: secondaryRegion });
 new ContainerStack(app, `ContainerStack-${secondaryRegion.region}`, {env: secondaryRegion, cluster: secondaryCluster.cluster });
 
-new CicdStack(app, `CicdStack`, {env: primaryRegion, 
-    firstRegionCluster: primaryCluster.cluster,
-    secondRegionCluster: secondaryCluster.cluster,
-    firstRegionRole: primaryCluster.firstRegionRole,
-    secondRegionRole: secondaryCluster.secondRegionRole});
+// new CicdStack(app, `CicdStack`, {env: primaryRegion, 
+//     firstRegionCluster: primaryCluster.cluster,
+//     secondRegionCluster: secondaryCluster.cluster,
+//     firstRegionRole: primaryCluster.firstRegionRole,
+//     secondRegionRole: secondaryCluster.secondRegionRole});
