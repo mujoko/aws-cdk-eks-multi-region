@@ -7,10 +7,10 @@ import * as eks from '@aws-cdk/aws-eks';
 
 
 export function codeToECRspec (scope: cdk.Construct, apprepo: string) :PipelineProject {
-    const buildForECR = new codebuild.PipelineProject(scope, `build-to-ecr`, { 
-        projectName: `build-to-ecr`,
+    const buildForECR = new codebuild.PipelineProject(scope, `build-to-repo`, { 
+        projectName: `build-to-repo`,
         environment: {
-            buildImage: codebuild.LinuxBuildImage.UBUNTU_14_04_DOCKER_18_09_0,
+            buildImage: codebuild.LinuxBuildImage.STANDARD_2_0,
             privileged: true
         },
         environmentVariables: { 'ECR_REPO_URI': {
