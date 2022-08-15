@@ -35,14 +35,31 @@ export class CicdStack extends cdk.Stack {
 
         const sourceOutput = new codepipeline.Artifact();
         new codepipeline.Pipeline(this, 'multi-region-eks-dep', {
-            stages: [ {
+            stages: [
+                 {
                     stageName: 'Source',
                     actions: [ new pipelineAction.CodeCommitSourceAction({
                             actionName: 'CatchSourcefromCode',
                             repository: helloPyRepo,
                             output: sourceOutput,
                         })]
-                },{
+                },
+
+                // {
+                //     stageName: 'Source',
+                //     actions: [ new pipelineAction.GitHubSourceAction({
+                //         actionName: 'GitHub_Source',
+                //         owner: 'awslabs',
+                //         repo: 'aws-cdk',
+                //         oauthToken: 'sss',//SecretValue.secretsManager('my-github-token'),
+                //         output: sourceOutput,
+                //         branch: 'develop', // default: 'master'
+                //       })]
+                // },
+
+                
+                
+                {
                     stageName: 'Build',
                     actions: [ new pipelineAction.CodeBuildAction({
                         actionName: 'BuildAndPushtoECR',
